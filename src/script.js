@@ -1,9 +1,12 @@
 // SAMPLE CODE TO CHECK API CALL
 
-async function getMovie() {
+const API_URL = "https://api.themoviedb.org/3/";
+
+async function searchMovie(search) {
+  const searchTerm = encodeURI(search);
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/550?api_key=${API_KEY}`
+      `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
     );
     const data = await response.json();
     console.log(data);
@@ -12,4 +15,4 @@ async function getMovie() {
   }
 }
 
-getMovie();
+searchMovie("finding nemo");
