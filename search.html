@@ -12,10 +12,14 @@
         <!-- name of website ** H1 -->
         <!-- nav  -- search / home  -->
         <!-- search bar -->
+        <form action="">
+            <input type="search" name="search" id="search">
+            <input type="submit" value="Search" id="search-Btn">
+        </form>
       </header>
       <body>
-        <section class="results-container">
-            <article class="result-card">
+        <section class="results-container" id="results-container">
+            <!-- <article class="result-card">
                 <img src="" alt="poster" class="result-img">
                 <div>
                     <p class="result-rating"></p>
@@ -25,22 +29,24 @@
                     <p class="result-genre"></p>
                 </div>
                 <article class="result-available">
-                    <h3 class="available-title">Stream</h3>
+                    <h3 class="">Stream</h3>
+                    <img src="" alt="stream servic'e logo" class="service-log">
+                </article>
+                <article class="result-available">
+                    <h3 class="">Rent</h3>
                     <img src="" alt="stream service logo" class="service-log">
                 </article>
                 <article class="result-available">
-                    <h3 class="available-title">Rent</h3>
+                    <h3 class="">Buy</h3>
                     <img src="" alt="stream service logo" class="service-log">
                 </article>
-                <article class="result-available">
-                    <h3 class="available-title">Buy</h3>
-                    <img src="" alt="stream service logo" class="service-log">
-                </article>
-            </article>
+            </article> -->
         </section>
       </body>
       <footer>
         <!-- project info + links -->
       </footer>
       <script src="/src/api.js"></script>
+      <script src="/src/utils.js"></script>
+      <script src="/src/search.js"></script>
 </html>
