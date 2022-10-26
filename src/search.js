@@ -1,45 +1,67 @@
 const searchBtn = document.getElementById("search-Btn");
 const resultsContainer = document.getElementById("results-container");
 
-const API_URL = "https://api.themoviedb.org/3/";
-const API_IMG = {
-  base_url: "https://image.tmdb.org/t/p/",
-  secure_base_url: "https://image.tmdb.org/t/p/",
-  backdrop_sizes: ["w300", "w780", "w1280", "original"],
-  logo_sizes: ["w45", "w92", "w154", "w185", "w300", "w500", "original"],
-  poster_sizes: ["w92", "w154", "w185", "w342", "w500", "w780", "original"],
-};
-
 searchBtn.addEventListener("click", searchMovie);
 
 async function searchMovie(search) {
   search.preventDefault();
+  resultsContainer.replaceChildren();
   const searchTerm = encodeURI(search.target.form.search.value);
   try {
     const response = await fetch(
-      `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
+      `${API_BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
     );
     const data = await response.json();
-    console.log(data);
-    createSearchCard(data);
+    for (let result of data.results) {
+      const providerData = await getWatchData(result.id);
+
+      if (Object.keys(providerData.results["GB"]).length !== 0) {
+        console.log(providerData.results["GB"], "yes!");
+        createSearchCard(result, providerData.results, "GB");
+      }
+    }
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 
-function getResults(data) {
+async function getWatchData(id) {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/movie/${id}/watch/providers?api_key=${API_KEY}&language=en-US`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function getResults(movieData, watchData, region) {
   const movie = {
-    title: data.results[0].title,
-    img_url:
-      API_IMG.base_url + API_IMG.poster_sizes[0] + data.results[0].poster_path,
-    rating: data.results[0].vote_average,
+    id: movieData.id,
+    title: movieData.title,
+    img_url: API_IMG.base_url + API_IMG.poster_sizes[2] + movieData.poster_path,
+    rating: movieData.vote_average,
   };
+
+  // if (
+  //   Object.keys(watchData).length === 0 ||
+  //   Object.keys(watchData[region]).length === 0
+  // ) {
+  //   console.log("no data");
+  // } else {
+  //   movie.stream = watchData["GB"].flatrate ? watchData["GB"].flatrate : "";
+  //   movie.rent = watchData["GB"].rent ? watchData["GB"].rent : "";
+  //   movie.buy = watchData["GB"].buy ? watchData["GB"].buy : "";
+  // }
+
   return movie;
 }
 
-function createSearchCard(data) {
-  const result = getResults(data);
-  console.log(result);
+function createSearchCard(movieData, watchData, region) {
+  const result = getResults(movieData, watchData, region);
+  // console.log(result);
   // main card
   const resultCard = createElwithClass("article", "result-card");
 
@@ -68,10 +90,4 @@ function createSearchCard(data) {
   resultCard.append(resultImg, titleLine, genreLine);
 
   resultsContainer.append(resultCard);
-}
-function createElwithClass(element, className) {
-  const el = document.createElement(element);
-  el.classList.add(className);
-
-  return el;
 }
