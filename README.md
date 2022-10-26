@@ -1,6 +1,6 @@
 # Moive App
 
-Movie App created as part of Multiverce Apprentishiop Bootcamp
+Movie App created as part of Multiverse Apprenticeships Bootcamp
 
 ## DO FIRST
 
