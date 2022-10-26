@@ -41,6 +41,7 @@ function getResults(movieData, watchData, region) {
   const movie = {
     id: movieData.id,
     title: movieData.title,
+    // poster size = width 185
     img_url: API_IMG.base_url + API_IMG.poster_sizes[2] + movieData.poster_path,
     rating: movieData.vote_average,
   };
@@ -66,9 +67,11 @@ function createSearchCard(movieData, watchData, region) {
   const resultCard = createElwithClass("article", "result-card");
 
   // img information
+  const imgContainer = document.createElement("div");
   const resultImg = createElwithClass("img", "result-img");
   resultImg.src = result.img_url;
 
+  imgContainer.append(resultImg);
   // title information
   const titleLine = document.createElement("div");
   const resultRating = createElwithClass("p", "result-rating");
@@ -87,7 +90,7 @@ function createSearchCard(movieData, watchData, region) {
   // services information
 
   // final card
-  resultCard.append(resultImg, titleLine, genreLine);
+  resultCard.append(imgContainer, titleLine, genreLine);
 
   resultsContainer.append(resultCard);
 }
