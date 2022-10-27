@@ -3,15 +3,6 @@ const resultsContainer = document.getElementById("results-container");
 
 searchBtn.addEventListener("click", searchMovie);
 
-async function movieList() {
-  const response = await fetch(
-    `${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}`
-  );
-  const data = await response.json();
-  console.log(data);
-}
-movieList();
-
 async function searchMovie(search) {
   search.preventDefault();
   resultsContainer.replaceChildren();
@@ -24,8 +15,7 @@ async function searchMovie(search) {
     const data = await response.json();
     for (let result of data.results) {
       const providerData = await getWatchData(result.id);
-
-      if (Object.keys(providerData.results[region]).length !== 0) {
+      if (!isEmpty(providerData.results[region])) {
         createSearchCard(result, providerData.results, region);
       }
     }
@@ -47,6 +37,7 @@ async function getWatchData(id) {
 }
 
 function getResults(movieData, watchData, region) {
+  console.log(movieData, watchData);
   const movie = {
     id: movieData.id,
     title: movieData.title,
