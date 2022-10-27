@@ -67,33 +67,36 @@ function getResults(movieData, watchData, region) {
 function createSearchCard(movieData, watchData, region) {
   const result = getResults(movieData, watchData, region);
   // main card
-  const resultCard = createElwithClass("article", "result-card");
+  const resultCard = createElwithClass("article", "search--result__card");
 
   // img information
-  const imgContainer = createElwithClass("div", "poster__container");
-  const resultImg = createElwithClass("img", "result-img");
+  const imgContainer = createElwithClass("div", "search--poster__container");
+  const resultImg = createElwithClass("img", "search--result__img");
   resultImg.src = result.img_url;
 
   imgContainer.append(resultImg);
   // title information
-  const titleLine = createElwithClass("div", "title__row");
-  const resultRating = createElwithClass("p", "result-rating");
+  const titleLine = createElwithClass("div", "search--title__row");
+  const resultRating = createElwithClass("p", "search--result__rating");
   resultRating.textContent = result.rating.toFixed(2);
 
-  const resultTitle = createElwithClass("h3", "result-title");
+  const resultTitle = createElwithClass("h3", "search--result__title");
   resultTitle.textContent = result.title;
 
   titleLine.append(resultRating, resultTitle);
   //genre information
-  const genreLine = createElwithClass("div", "genre__row");
+  const genreLine = createElwithClass("div", "search--genre__row");
   for (let id of result.genre_ids) {
-    const genreText = createElwithClass("p", "result-genre");
+    const genreText = createElwithClass("p", "search--result__genre");
     genreText.textContent = genreIds[id];
     genreLine.appendChild(genreText);
   }
 
   // services information
-  const servicesContainer = createElwithClass("div", "services__containers");
+  const servicesContainer = createElwithClass(
+    "div",
+    "search--services__containers"
+  );
   for (let serviceInfo of result.watchServices) {
     const watchService = createWatchServicesEl(serviceInfo);
     servicesContainer.append(watchService);
@@ -106,15 +109,18 @@ function createSearchCard(movieData, watchData, region) {
 }
 
 function createWatchServicesEl(watchInfo) {
-  const serviceContainer = createElwithClass("div", "service__container");
-  const titleEl = createElwithClass("h3", "service__title");
+  const serviceContainer = createElwithClass(
+    "div",
+    "search--service__container"
+  );
+  const titleEl = createElwithClass("h3", "search--service__title");
   titleEl.textContent = watchInfo.serviceType;
 
-  const serviceRow = createElwithClass("div", "service__row");
+  const serviceRow = createElwithClass("div", "search--service__row");
 
   for (let service of watchInfo.data) {
-    const logoContainer = createElwithClass("div", "logo__container");
-    const logoImg = createElwithClass("img", "logo");
+    const logoContainer = createElwithClass("div", "search--logo__container");
+    const logoImg = createElwithClass("img", "search--logo");
     logoImg.src = API_IMG.base_url + API_IMG.logo_sizes[0] + service.logo_path;
     logoContainer.append(logoImg);
     serviceRow.append(logoContainer);

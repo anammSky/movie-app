@@ -23,31 +23,31 @@
 }
 
 /* Ana's working css */
-.result-card {
+.search--result-card {
   margin: 5px;
   border: 5px solid blue;
 }
-.title__row {
+.search--title__row {
   display: flex;
 }
-.title__row > * {
+.search--title__row > * {
   margin: 5px;
 }
 
-.genre__row {
+.search--genre__row {
   display: flex;
 }
 
-.genre__row > * {
+.search--genre__row > * {
   margin: 5px;
 }
-.service__container {
+.search--service__container {
   border: solid green;
 }
-.service__row {
+.search--service__row {
   display: flex;
   border: solid;
 }
-.logo__container {
+.search--logo__container {
   margin: 5px;
 }
