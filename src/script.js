@@ -110,8 +110,10 @@ for (let tile of tilesData) {
 
 const genreSection = document.querySelector('.genre__section')
 const genreListButton = document.querySelector('.fi-sr-list')
-
+const genreDisplay = false
 genreListButton.addEventListener('click', () => {
+
+  
   const genreAside = createElwithClass('aside', 'sidebar')
 
   const genreTopDiv = createElwithClass('div', 'sidebar__top')
