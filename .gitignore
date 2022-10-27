@@ -1,2 +1,11 @@
 src/api.js
 node_modules
+.DS_Store
+movies.js
+scrap.html
+script.html
+assets/netflix.png
+.gitignore
+.gitignore
+assets/02.jpg
+assets/01.jpg

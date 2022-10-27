@@ -44,23 +44,18 @@ function getResults(movieData, watchData, region) {
     img_url: API_IMG.base_url + API_IMG.poster_sizes[2] + movieData.poster_path,
     genre_ids: movieData.genre_ids,
     rating: movieData.vote_average,
-    watchServices: [
-      {
-        serviceType: "stream",
-        data: watchData[region].flatrate ? watchData[region].flatrate : [],
-      },
-      {
-        serviceType: "rent",
-        data: watchData[region].rent ? watchData[region].rent : [],
-      },
-      {
-        serviceType: "buy",
-        data: watchData[region].buy ? watchData[region].buy : [],
-      },
-    ],
+    watchServices: [],
   };
-  console.log(movie);
 
+  for (let service in watchData[region]) {
+    if (service !== "link") {
+      const temp = {
+        serviceType: service === "flatrate" ? "stream" : service,
+        data: watchData[region][service],
+      };
+      movie.watchServices.push(temp);
+    }
+  }
   return movie;
 }
 
@@ -109,6 +104,7 @@ function createSearchCard(movieData, watchData, region) {
 }
 
 function createWatchServicesEl(watchInfo) {
+  console.log(watchInfo);
   const serviceContainer = createElwithClass(
     "div",
     "search--service__container"
