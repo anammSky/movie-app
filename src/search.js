@@ -37,7 +37,6 @@ async function getWatchData(id) {
 }
 
 function getResults(movieData, watchData, region) {
-  console.log(movieData, watchData);
   const movie = {
     id: movieData.id,
     title: movieData.title,
@@ -45,28 +44,39 @@ function getResults(movieData, watchData, region) {
     img_url: API_IMG.base_url + API_IMG.poster_sizes[2] + movieData.poster_path,
     genre_ids: movieData.genre_ids,
     rating: movieData.vote_average,
-    stream: watchData[region].flatrate ? watchData[region].flatrate : [],
-    rent: watchData[region].rent ? watchData[region].rent : [],
-    buy: watchData[region].buy ? watchData[region].buy : [],
+    watchServices: [
+      {
+        serviceType: "stream",
+        data: watchData[region].flatrate ? watchData[region].flatrate : [],
+      },
+      {
+        serviceType: "rent",
+        data: watchData[region].rent ? watchData[region].rent : [],
+      },
+      {
+        serviceType: "buy",
+        data: watchData[region].buy ? watchData[region].buy : [],
+      },
+    ],
   };
+  console.log(movie);
 
   return movie;
 }
 
 function createSearchCard(movieData, watchData, region) {
   const result = getResults(movieData, watchData, region);
-  // console.log(result);
   // main card
   const resultCard = createElwithClass("article", "result-card");
 
   // img information
-  const imgContainer = document.createElement("div");
+  const imgContainer = createElwithClass("div", "poster__container");
   const resultImg = createElwithClass("img", "result-img");
   resultImg.src = result.img_url;
 
   imgContainer.append(resultImg);
   // title information
-  const titleLine = document.createElement("div");
+  const titleLine = createElwithClass("div", "title__row");
   const resultRating = createElwithClass("p", "result-rating");
   resultRating.textContent = result.rating.toFixed(2);
 
@@ -75,7 +85,7 @@ function createSearchCard(movieData, watchData, region) {
 
   titleLine.append(resultRating, resultTitle);
   //genre information
-  const genreLine = document.createElement("div");
+  const genreLine = createElwithClass("div", "genre__row");
   for (let id of result.genre_ids) {
     const genreText = createElwithClass("p", "result-genre");
     genreText.textContent = genreIds[id];
@@ -83,9 +93,33 @@ function createSearchCard(movieData, watchData, region) {
   }
 
   // services information
+  const servicesContainer = createElwithClass("div", "services__containers");
+  for (let serviceInfo of result.watchServices) {
+    const watchService = createWatchServicesEl(serviceInfo);
+    servicesContainer.append(watchService);
+  }
 
   // final card
-  resultCard.append(imgContainer, titleLine, genreLine);
+  resultCard.append(imgContainer, titleLine, genreLine, servicesContainer);
 
   resultsContainer.append(resultCard);
+}
+
+function createWatchServicesEl(watchInfo) {
+  const serviceContainer = createElwithClass("div", "service__container");
+  const titleEl = createElwithClass("h3", "service__title");
+  titleEl.textContent = watchInfo.serviceType;
+
+  const serviceRow = createElwithClass("div", "service__row");
+
+  for (let service of watchInfo.data) {
+    const logoContainer = createElwithClass("div", "logo__container");
+    const logoImg = createElwithClass("img", "logo");
+    logoImg.src = API_IMG.base_url + API_IMG.logo_sizes[0] + service.logo_path;
+    logoContainer.append(logoImg);
+    serviceRow.append(logoContainer);
+  }
+  serviceContainer.append(titleEl, serviceRow);
+
+  return serviceContainer;
 }
