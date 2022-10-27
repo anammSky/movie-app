@@ -35,3 +35,18 @@ function createElwithClass(element, className) {
 
   return el;
 }
+
+// get movie list genres updated list
+async function getMovieGenresList() {
+  const response = await fetch(
+    `${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+}
+
+function isEmpty(object) {
+  for (const property in object) {
+    return false;
+  }
+  return true;
+}
