@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/temp_style.css" />
     <title>Search Results</title>
 </head>
 <body>
@@ -12,35 +12,19 @@
         <!-- name of website ** H1 -->
         <!-- nav  -- search / home  -->
         <!-- search bar -->
+        <form action="">
+            <input type="search" name="search" id="search">
+            <input type="submit" value="Search" id="search-Btn">
+        </form>
       </header>
       <body>
-        <section class="results-container">
-            <article class="result-card">
-                <img src="" alt="poster" class="result-img">
-                <div>
-                    <p class="result-rating"></p>
-                    <h2 class="result-title">movie tilte</h2>
-                </div>
-                <div>
-                    <p class="result-genre"></p>
-                </div>
-                <article class="result-available">
-                    <h3 class="available-title">Stream</h3>
-                    <img src="" alt="stream service logo" class="service-log">
-                </article>
-                <article class="result-available">
-                    <h3 class="available-title">Rent</h3>
-                    <img src="" alt="stream service logo" class="service-log">
-                </article>
-                <article class="result-available">
-                    <h3 class="available-title">Buy</h3>
-                    <img src="" alt="stream service logo" class="service-log">
-                </article>
-            </article>
+        <section class="results-container" id="results-container">
         </section>
       </body>
       <footer>
         <!-- project info + links -->
       </footer>
       <script src="/src/api.js"></script>
+      <script src="/src/utils.js"></script>
+      <script src="/src/search.js"></script>
 </html>
