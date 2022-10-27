@@ -50,11 +50,17 @@ function createFrontPageCard(data, el) {
     //IMAGE SECTION CREATE
     const sectionImage = createElwithClass("div", "section__image");
     const movieImage = document.createElement("img");
+    const movieImageAnchor = document.createElement('a')
+    movieImageAnchor.href = '/movie.html'
     movieImage.src =
       API_IMG.base_url + API_IMG.poster_sizes[2] + movieData[i].poster_path;
 
+    movieImageAnchor.append(movieImage)
+    
+    
+
     //APPEND IMAGE TO DIV
-    sectionImage.append(movieImage);
+    sectionImage.append(movieImageAnchor);
 
     //TEXT SECTION CREATE
     const sectionText = createElwithClass("div", "section__text");
@@ -108,10 +114,14 @@ for (let tile of tilesData) {
 }
 
 
+
+
 const genreSection = document.querySelector('.genre__section')
 const genreListButton = document.querySelector('.fi-sr-list')
+const test = false
 
 genreListButton.addEventListener('click', () => {
+  
   const genreAside = createElwithClass('aside', 'sidebar')
 
   const genreTopDiv = createElwithClass('div', 'sidebar__top')
@@ -122,23 +132,26 @@ genreListButton.addEventListener('click', () => {
   const genreBottomDiv = createElwithClass('div', 'sidebar__bottom')
   const genreListContainer = document.createElement('ul')
   
-for (let genre of tilesData) {
-  const genreListItem = createElwithClass('li', 'genreItem')
-  const scrollToItem = document.createElement('a')
-  scrollToItem.href = `#${genre.id}`
-  scrollToItem.textContent = genre.name
-  genreListItem.append(scrollToItem)
-  genreListContainer.append(genreListItem)
-}
+  for (let genre of tilesData) {
+    const genreListItem = createElwithClass('li', 'genreItem')
+    const scrollToItem = document.createElement('a')
+    scrollToItem.href = `#${genre.id}`
+    scrollToItem.textContent = genre.name
+    genreListItem.append(scrollToItem)
+    genreListContainer.append(genreListItem)
+  }
 
-genreBottomDiv.append(genreListContainer)
-genreAside.append(genreTopDiv, genreBottomDiv)
+  genreBottomDiv.append(genreListContainer)
+  genreAside.append(genreTopDiv, genreBottomDiv)
 
-body.append(genreAside)
+  
+    body.append(genreAside)
+  
 
-closeBtnImg.addEventListener('click', () => {
-  genreAside.textContent = ''
-})
+  closeBtnImg.addEventListener('click', () => {
+    genreAside.textContent = ''
+    genreAside.classList.remove('sidebar')
+  })
 
 })
 
