@@ -132,11 +132,15 @@ function createFrontPageCard(data, el) {
     //IMAGE SECTION CREATE
     const sectionImage = createElwithClass("div", "section__image");
     const movieImage = document.createElement("img");
+    const movieImageAnchor = document.createElement("a");
+    movieImageAnchor.href = "/movie.html";
     movieImage.src =
       API_IMG.base_url + API_IMG.poster_sizes[2] + movieData[i].poster_path;
 
+    movieImageAnchor.append(movieImage);
+
     //APPEND IMAGE TO DIV
-    sectionImage.append(movieImage);
+    sectionImage.append(movieImageAnchor);
 
     //TEXT SECTION CREATE
     const sectionText = createElwithClass("div", "section__text");
@@ -190,9 +194,10 @@ for (let tile of tilesData) {
 }
 
 const genreSection = document.querySelector(".genre__section");
-const genreListButton = document.querySelector(".fi-sr-list");
+const genreListButton = document.querySelector("#genre-tab-btn");
 
 genreListButton.addEventListener("click", () => {
+  genreListButton.disabled = true;
   const genreAside = createElwithClass("aside", "sidebar");
 
   const genreTopDiv = createElwithClass("div", "sidebar__top");
@@ -218,6 +223,8 @@ genreListButton.addEventListener("click", () => {
   body.append(genreAside);
 
   closeBtnImg.addEventListener("click", () => {
+    genreListButton.disabled = false;
     genreAside.textContent = "";
+    genreAside.classList.remove("sidebar");
   });
 });
