@@ -1,0 +1,53 @@
+.card-container {
+  display: flex;
+}
+.card-container div {
+  width: 200px;
+  height: 300px;
+  background-color: bisque;
+  margin: 2px;
+}
+
+.genre__section {
+  border: solid 5px blue;
+  margin: 5px;
+}
+.section__row {
+  display: flex;
+  overflow: scroll;
+}
+
+.section__card {
+  margin: 2px;
+  border: solid;
+}
+
+/* Ana's working css */
+.result-card {
+  margin: 5px;
+  border: 5px solid blue;
+}
+.title__row {
+  display: flex;
+}
+.title__row > * {
+  margin: 5px;
+}
+
+.genre__row {
+  display: flex;
+}
+
+.genre__row > * {
+  margin: 5px;
+}
+.service__container {
+  border: solid green;
+}
+.service__row {
+  display: flex;
+  border: solid;
+}
+.logo__container {
+  margin: 5px;
+}
