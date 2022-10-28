@@ -20,7 +20,7 @@ function getResults(movieData, watchData, region) {
     title: movieData.title,
     vote: movieData.vote_average,
     img_url:
-      API_IMG.base_url + API_IMG.poster_sizes[2] + movieData.backdrop_path,
+      API_IMG.base_url + API_IMG.backdrop_sizes[2] + movieData.backdrop_path,
     genres: movieData.genres,
     overview: movieData.overview,
     watchServices: [],

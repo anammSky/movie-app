@@ -54,12 +54,6 @@ function createFrontPageCard(data, el) {
     //TEXT BOTTOM CREATE
     const textBottom = createElwithClass("div", "text__bottom");
 
-    for (let id of movieData[i].genre_ids) {
-      const genreTag = document.createElement("p");
-      genreTag.classList.add("genre__list");
-      genreTag.textContent = genreIds[id];
-      textBottom.append(genreTag);
-    }
     const movieRating = document.createElement("p");
     movieRating.textContent = movieData[i].vote_average;
 
