@@ -1,111 +1,3 @@
-const tilesData = [
-  {
-    name: "Trending",
-    searchTerm: `/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
-    id: "popular",
-  },
-  {
-    name: "Top Rated",
-    searchTerm: `/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
-    id: "top__rated",
-  },
-  {
-    name: "Action",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=28`,
-    id: "action",
-  },
-  {
-    name: "Adventure",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=12`,
-    id: "adventure",
-  },
-  {
-    name: "Animation",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=16`,
-    id: "animation",
-  },
-  {
-    name: "Comedy",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=35`,
-    id: "comedy",
-  },
-  {
-    name: "Crime",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=80`,
-    id: "crime",
-  },
-  {
-    name: "Documentary",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=99`,
-    id: "documentary",
-  },
-  {
-    name: "Drama",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=18`,
-    id: "Drama",
-  },
-  {
-    name: "Family",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=10751`,
-    id: "family",
-  },
-  {
-    name: "Fantasy",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=14`,
-    id: "fantasy",
-  },
-  {
-    name: "History",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=36`,
-    id: "history",
-  },
-  {
-    name: "Horror",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=27`,
-    id: "horror",
-  },
-  {
-    name: "Music",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=10402`,
-    id: "music",
-  },
-  {
-    name: "Mystery",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=9648`,
-    id: "mystery",
-  },
-  {
-    name: "Romance",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=10749`,
-    id: "romance",
-  },
-  {
-    name: "Science Fiction",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=878`,
-    id: "science__fiction",
-  },
-  {
-    name: "TV Movie",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=10770`,
-    id: "tv__movie",
-  },
-  {
-    name: "Thriller",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=53`,
-    id: "thriller",
-  },
-  {
-    name: "War",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=10752`,
-    id: "war",
-  },
-  {
-    name: "Western",
-    searchTerm: `discover/movie?api_key=${API_KEY}&with_genres=37`,
-    id: "western",
-  },
-];
-
 //GENRE SECTION GRABBERS
 const main = document.querySelector("main");
 const body = document.querySelector("body");
@@ -128,20 +20,25 @@ function createFrontPageCard(data, el) {
   for (let i = 0; i < 15; i++) {
     //CARD SECTION CREATE
     const card = createElwithClass("div", "section__card");
+    // card.setAttribute("data-id", movieData[i].id);
 
     //IMAGE SECTION CREATE
     const sectionImage = createElwithClass("div", "section__image");
     const movieImage = document.createElement("img");
-    const movieImageAnchor = document.createElement("a");
-    movieImageAnchor.href = "/movie.html";
+    // const movieImageAnchor = document.createElement("a");
+    // movieImageAnchor.href = "/movie.html";
+    // movieImageAnchor.href = "#";
+
     movieImage.src =
       API_IMG.base_url + API_IMG.poster_sizes[2] + movieData[i].poster_path;
 
-    movieImageAnchor.append(movieImage);
+    movieImage.setAttribute("data-id", movieData[i].id);
+
+    // movieImageAnchor.append(movieImage);
 
     //APPEND IMAGE TO DIV
-    sectionImage.append(movieImageAnchor);
-
+    // sectionImage.append(movieImageAnchor);
+    sectionImage.append(movieImage);
     //TEXT SECTION CREATE
     const sectionText = createElwithClass("div", "section__text");
 
@@ -193,8 +90,20 @@ for (let tile of tilesData) {
   getMovies(tile.searchTerm, sectionRow);
 }
 
-const genreSection = document.querySelector(".genre__section");
+const genreSection = document.querySelectorAll(".genre__section");
 const genreListButton = document.querySelector("#genre-tab-btn");
+
+genreSection.forEach((section) => {
+  // console.log(section);
+  section.addEventListener("click", (e) => {
+    const target = e.target;
+    const MovieId = target.dataset.id;
+    if (MovieId) {
+      console.log(MovieId);
+      window.location.href = "/movie.html";
+    }
+  });
+});
 
 genreListButton.addEventListener("click", () => {
   genreListButton.disabled = true;
