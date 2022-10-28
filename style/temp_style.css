@@ -23,7 +23,7 @@
 }
 
 /* Ana's working css */
-.search--result-card {
+.search--result__card {
   margin: 5px;
   border: 5px solid blue;
 }
