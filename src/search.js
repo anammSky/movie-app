@@ -70,6 +70,8 @@ function createSearchCard(movieData, watchData, region) {
   resultImg.src = result.img_url;
 
   imgContainer.append(resultImg);
+
+  const infoContainer = createElwithClass("div", "search--movie-info");
   // title information
   const titleLine = createElwithClass("div", "search--title__row");
   const resultRating = createElwithClass("p", "search--result__rating");
@@ -97,8 +99,10 @@ function createSearchCard(movieData, watchData, region) {
     servicesContainer.append(watchService);
   }
 
+  infoContainer.append(titleLine, genreLine, servicesContainer);
+
   // final card
-  resultCard.append(imgContainer, titleLine, genreLine, servicesContainer);
+  resultCard.append(imgContainer, infoContainer);
 
   resultsContainer.append(resultCard);
 }
