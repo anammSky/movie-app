@@ -163,6 +163,7 @@ function createFrontPageCard(data, el) {
       genreTag.textContent = genreIds[id];
       textBottom.append(genreTag);
     }
+    
     const movieRating = document.createElement("p");
     movieRating.textContent = movieData[i].vote_average;
 
