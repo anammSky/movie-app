@@ -47,7 +47,7 @@ function createMovieCard(movieData, watchData) {
   movieTitle.textContent = result.title;
 
   const movieRating = document.querySelector(".movie__rating");
-  movieRating.textContent = Math.round(result.vote);
+  movieRating.textContent = result.vote.toFixed(1);
 
   const genreRow = document.querySelector(".movie__genre__row");
 

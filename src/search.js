@@ -63,7 +63,7 @@ function createSearchCard(movieData, watchData, region) {
   // title information
   const titleLine = createElwithClass("div", "search--title__row");
   const resultRating = createElwithClass("p", "search--result__rating");
-  resultRating.textContent = result.rating.toFixed(2);
+  resultRating.textContent = result.rating.toFixed(1);
 
   const resultTitle = createElwithClass("h3", "search--result__title");
   resultTitle.textContent = result.title;
