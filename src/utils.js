@@ -158,3 +158,15 @@ function isEmpty(object) {
   }
   return true;
 }
+
+async function getWatchData(id) {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/movie/${id}/watch/providers?api_key=${API_KEY}&language=en-US`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

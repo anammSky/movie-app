@@ -3,7 +3,7 @@ const main = document.querySelector("main");
 const body = document.querySelector("body");
 
 //GET MOVIE DATA FUNCTION
-async function getMovies(typeList, el) {
+async function getMovieList(typeList, el) {
   try {
     const response = await fetch(`${API_BASE_URL}${typeList}`);
     const data = await response.json();
@@ -77,29 +77,34 @@ function createFrontPageCard(data, el) {
   }
 }
 
-for (let tile of tilesData) {
-  const tileEl = createElwithClass("section", "genre__section");
-  tileEl.id = tile.id;
-  const title = document.createElement("h2");
-  title.textContent = tile.name;
-  const sectionRow = createElwithClass("div", "section__row");
+function loadPage() {
+  for (let tile of tilesData) {
+    const tileEl = createElwithClass("section", "genre__section");
+    tileEl.id = tile.id;
+    const title = document.createElement("h2");
+    title.textContent = tile.name;
+    const sectionRow = createElwithClass("div", "section__row");
 
-  tileEl.append(title, sectionRow);
-  main.append(tileEl);
+    tileEl.append(title, sectionRow);
+    main.append(tileEl);
 
-  getMovies(tile.searchTerm, sectionRow);
+    getMovieList(tile.searchTerm, sectionRow);
+  }
 }
+if (window.location.pathname === "/index.html") loadPage();
 
+// DO NOT MOVE THESE CONST
 const genreSection = document.querySelectorAll(".genre__section");
 const genreListButton = document.querySelector("#genre-tab-btn");
 
 genreSection.forEach((section) => {
-  // console.log(section);
   section.addEventListener("click", (e) => {
     const target = e.target;
-    const MovieId = target.dataset.id;
-    if (MovieId) {
-      console.log(MovieId);
+    // save id to local storage
+    const MOVIE_ID = Number(target.dataset.id);
+    console.log(MOVIE_ID);
+    if (MOVIE_ID) {
+      window.localStorage.setItem("movieID", MOVIE_ID);
       window.location.href = "/movie.html";
     }
   });
